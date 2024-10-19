@@ -2,7 +2,6 @@ const token = localStorage.getItem("token");
 if (!token) {
   window.location.href = "../Login/index.html";
 }
-
 fetchGET();
 async function fetchGET() {
   try {
@@ -34,7 +33,7 @@ async function fetchGET() {
     for (const boton of botones) {
       boton.addEventListener("click", function () {
         const vercomentario = this.getAttribute("data-idtema");
-        window.location.href = `./Comentarios/index.html?idtema=${vercomentario}`;
+        window.location.href = `../Comentarios/index.html?idtema=${vercomentario}`;
       });
     }
   } catch (error) {

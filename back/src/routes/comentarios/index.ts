@@ -2,6 +2,7 @@ import { FastifyPluginAsync } from "fastify";
 import { ComentarioSchema } from "../../types/comentarios.js";
 import { IdTema } from "../../types/tema.js";
 import * as comentarioservice from "../../services/comentarios.js";
+
 const comentariosRoutes: FastifyPluginAsync = async (
   fastify,
   opts
@@ -10,6 +11,7 @@ const comentariosRoutes: FastifyPluginAsync = async (
     onRequest: [fastify.verifyJWT],
     handler: async function (request, reply) {
       const { id_tema } = request.params as IdTema;
+      reply.code(200);
       return comentarioservice.findAll(id_tema);
     },
   });
@@ -18,7 +20,7 @@ const comentariosRoutes: FastifyPluginAsync = async (
     schema: {
       body: ComentarioSchema,
     },
-    onRequest: [fastify.verifyJWT, fastify.verifyAdmin],
+    onRequest: [fastify.verifyJWT],
     handler: async function (request, reply) {
       const nuevocomentario = request.body as ComentarioSchema;
       reply.code(201);
@@ -30,7 +32,7 @@ const comentariosRoutes: FastifyPluginAsync = async (
     },
   });
   fastify.delete("/:idtema/:idcomentario", {
-    onRequest: [fastify.verifyJWT, fastify.verifyAdmin],
+    onRequest: [fastify.verifyJWT],
     handler: async function (request, reply) {
       const idtema = (request.params as { idtema: number }).idtema;
       const idcomentario = (request.params as { idcomentario: number })
@@ -47,6 +49,7 @@ const comentariosRoutes: FastifyPluginAsync = async (
     handler: async function (request, reply) {
       const comentario = request.body as ComentarioSchema;
       const id = (request.params as { id: number }).id;
+      reply.code(200);
       return comentarioservice.modify(
         comentario.id_tema,
         id,
