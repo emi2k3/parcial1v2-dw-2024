@@ -27,12 +27,14 @@ document
   .addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    if (descInput.value != "") {
+    if (descInput.value != "" && descInput.value.length <= 100) {
       const data = new Comentario(descInput.value, idtema, idtoken.id_usuario);
       console.log(JSON.stringify(data));
       await fetchdatos(data);
     } else {
-      alert("Por favor, corrija los errores.");
+      alert(
+        "Su comentario no puede estar vacio o tener mas de 100 caracteres."
+      );
     }
   });
 

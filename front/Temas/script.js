@@ -40,10 +40,3 @@ async function fetchGET() {
     console.log(error);
   }
 }
-
-document
-  .getElementById("conseguirtemas")
-  .addEventListener("click", function () {
-    const vercomentario = this.getAttribute("data-idtema");
-    window.location.href = `./Temas/index.html`;
-  });

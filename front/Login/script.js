@@ -20,7 +20,7 @@ document
   .addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    if (usuarioInput.value != "" || contraseñaInput.value != "") {
+    if (usuarioInput.value != "" && contraseñaInput.value != "") {
       const data = new Usuario(usuarioInput.value, contraseñaInput.value);
       console.log(JSON.stringify(data));
       await fetchdatos(data);
@@ -30,7 +30,13 @@ document
       ) {
         usuarioInput.value = "";
         contraseñaInput.value = "";
-        window.location.href = "../";
+        const token = localStorage.getItem("token");
+        const idtoken = JSON.parse(atob(token.split(".")[1]));
+        if (idtoken.is_admin == true) {
+          window.location.href = "../Temas/index.html";
+        } else {
+          window.location.href = "../";
+        }
       }
     } else {
       alert("Por favor, corrija los errores.");
